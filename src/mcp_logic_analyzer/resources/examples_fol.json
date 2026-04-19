@@ -1,0 +1,14 @@
+[
+  {
+    "text": "Todo aluno estuda.",
+    "surface_form": "forall x. (Aluno(x) -> Estuda(x))"
+  },
+  {
+    "text": "Nenhum peixe voa.",
+    "surface_form": "forall x. (Peixe(x) -> ~Voa(x))"
+  },
+  {
+    "text": "Joao e aluno.",
+    "surface_form": "Aluno(joao)"
+  }
+]

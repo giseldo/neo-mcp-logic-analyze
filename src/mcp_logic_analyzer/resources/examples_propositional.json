@@ -1,0 +1,12 @@
+[
+  {
+    "text": "Se chove, a rua molha.",
+    "surface_form": "(C -> RM)",
+    "notes": ["C=chove", "RM=rua molha"]
+  },
+  {
+    "text": "Ou Joao estuda ou trabalha.",
+    "surface_form": "(JE | T)",
+    "notes": ["Leitura padrao de ou como disjuncao inclusiva."]
+  }
+]

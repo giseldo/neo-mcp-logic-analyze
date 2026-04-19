@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+
+.quarto/
+_site/
+docs/.quarto/
+docs/_site/
+
+.DS_Store
+Thumbs.db

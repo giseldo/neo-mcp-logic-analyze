@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LogicalNode",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["atom", "predicate", "not", "and", "or", "implies", "iff", "forall", "exists"]
+    },
+    "name": { "type": "string" },
+    "args": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "left": { "$ref": "#" },
+    "right": { "$ref": "#" },
+    "body": { "$ref": "#" },
+    "var": { "type": "string" }
+  },
+  "additionalProperties": false
+}

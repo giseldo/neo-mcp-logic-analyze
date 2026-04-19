@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "neo-mcp-logic-analyze"
+version = "0.1.0"
+description = "MCP server for controlled formal logic analysis from natural language."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "OpenAI Codex" }
+]
+dependencies = [
+  "mcp>=1.9.0",
+  "pydantic>=2.7.0",
+  "sympy>=1.12",
+  "z3-solver>=4.12.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2.0"
+]
+
+[project.scripts]
+neo-mcp-logic-analyze = "mcp_logic_analyzer.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_logic_analyzer"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
