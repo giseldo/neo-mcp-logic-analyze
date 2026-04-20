@@ -140,18 +140,18 @@ Depois de baixado (git clone) e instalado (pip install .) basta configurar no Ha
 
 No claude desktop
 
-![alt text](image-4.png)
+![alt text](img/image-4.png)
 
-![alt text](image-3.png)
+![alt text](img/image-3.png)
 
 Depois de alterar o arquivo reinicie o claude desktop.
 
-![alt text](image-2.png)
+![alt text](img/image-2.png)
 
 ### Exemplo de uso
 
-![alt text](image.png)
+![alt text](img/image.png)
 
 Depois ele trará a resposta se for dada a permissão
 
-![alt text](image-1.png)
+![alt text](img/image-1.png)
