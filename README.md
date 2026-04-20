@@ -20,7 +20,7 @@ Servidor MCP em Python para analisar enunciados em linguagem natural e produzir 
 - `explain_formalization`
 - `normalize_argument`
 
-## Execução rápida
+## Instalação
 
 Para fazer o download dos binários e instalar no ambiente python local
 
@@ -30,10 +30,20 @@ cd neo-mcp-logic-analyze
 python -m pip install -e .
 ```
 
+## Execução rápida
+
 Para verificar se está tudo funcionando
 
 ```powershell
 neo-mcp-logic-analyze
+```
+
+## Como desinstalar
+
+Se você instalou este app com `pip install -e .` ou `pip install .`, remova com:
+
+```powershell
+pip uninstall neo-mcp-logic-analyze
 ```
 
 ## Configuração do MCP no claude code ou no cursor
