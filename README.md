@@ -122,12 +122,13 @@ logic_family = "fol"
 
 ## Exemplo no claude desktop
 
-Se tudo estiver correto no claude desktop ele irá verificar com o usuário liberação para acesso ao MCP.
+Se tudo estiver correto no claude desktop quando o LLM quiser o Harness irá chamar a Tool/MCP (neo-mcp-logic-analyze). 
 
 ### Configuração
 
+Depois de baixado (git clone) e instalado (pip install .) basta configurar no Harness o MCP Client.
 
-```
+```xml
 {
 "mcpServers": {
     "neo-mcp-logic-analyze": {
