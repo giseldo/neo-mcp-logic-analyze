@@ -213,3 +213,10 @@ pip uninstall neo-mcp-logic-analyze
 ## Licença
 
 MIT
+
+## Links
+
+(Landing Site)[http://neo-mcp-logic-analyze.lovable.app/]
+
+(MCP.so)[https://mcp.so/server/neo-mcp-logic-analyze/]
+
