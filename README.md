@@ -27,14 +27,14 @@ Para fazer o download dos binários e instalar no ambiente python local
 ```powershell
 git clone https://github.com/giseldo/neo-mcp-logic-analyze
 cd neo-mcp-logic-analyze
-python -m pip install -e .
+python -m pip install .
 ```
 
 ## Execução rápida
 
 O programa não precisa iniciar, ele será iniciado pelo Harness (por exemplo: claude desktop ou cursor)
 
-Mas para verificar se está tudo funcionando, execute o comando a seguir. Ele agora exibe uma mensagem curta informando que o servidor subiu e ficou aguardando um cliente MCP via `stdio`. Depois feche o terminal, ou CTRL + C para parar a aplicação. Ela será iniciada pelo Harness.
+Mas para verificar se está tudo funcionando, execute o comando a seguir. Ele exibe uma mensagem curta no terminal informando que o servidor subiu e ficou aguardando um cliente MCP via `stdio`. Depois feche o terminal, ou CTRL + C para parar a aplicação. Pois o controle de quandoi será iniciado será pelo Harness.
 
 ```powershell
 neo-mcp-logic-analyze
@@ -43,6 +43,7 @@ neo-mcp-logic-analyze
 Saída esperada:
 
 ```text
+C:\neo-mcp-logic-analyze>neo-mcp-logic-analyze
 neo-mcp-logic-analyze: servidor MCP iniciado em stdio; aguardando cliente...
 ```
 
@@ -124,6 +125,17 @@ logic_family = "fol"
 Se tudo estiver correto no claude desktop ele irá verificar com o usuário liberação para acesso ao MCP.
 
 ### Configuração
+
+
+```
+{
+"mcpServers": {
+    "neo-mcp-logic-analyze": {
+      "command": "neo-mcp-logic-analyze"
+    }
+  },
+}
+```
 
 No claude desktop
 
