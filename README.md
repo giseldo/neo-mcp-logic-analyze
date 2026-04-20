@@ -20,42 +20,60 @@ Servidor MCP em Python para analisar enunciados em linguagem natural e produzir 
 - `explain_formalization`
 - `normalize_argument`
 
-## Documentação
-
-A documentação foi reorganizada em Quarto, com múltiplas páginas:
-
-- [Início](/C:/Projetos/parser_logic_mcp/docs/index.qmd)
-- [Instalação](/C:/Projetos/parser_logic_mcp/docs/instalacao.qmd)
-- [Uso](/C:/Projetos/parser_logic_mcp/docs/uso.qmd)
-- [Referência](/C:/Projetos/parser_logic_mcp/docs/referencia.qmd)
-- [Solução de problemas](/C:/Projetos/parser_logic_mcp/docs/troubleshooting.qmd)
-
-Se você tiver o Quarto instalado:
-
-```powershell
-cd C:\Projetos\parser_logic_mcp\docs
-quarto render
-```
-
 ## Execução rápida
 
 ```powershell
-cd C:\Projetos\parser_logic_mcp
+cd .
 python -m pip install -e .
-$env:PYTHONPATH = "C:\Projetos\parser_logic_mcp\src"
+$env:PYTHONPATH = "$PWD\src"
 python -m mcp_logic_analyzer.server
 ```
 
+## Configuração do MCP
+
+Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar o projeto com `pip install -e .`:
+
+```json
+{
+	"mcpServers": {
+		"neo-mcp-logic-analyze": {
+			"command": "neo-mcp-logic-analyze"
+		}
+	}
+}
+```
+
+Alternativa para rodar direto do diretório atual do projeto (sem usar o script instalado):
+
+```json
+{
+	"mcpServers": {
+		"neo-mcp-logic-analyze": {
+			"command": "python",
+			"args": ["-m", "mcp_logic_analyzer.server"],
+			"cwd": ".",
+			"env": {
+				"PYTHONPATH": "src"
+			}
+		}
+	}
+}
+```
+
+Se o seu cliente MCP não aceitar `cwd` relativo, informe o caminho absoluto da pasta do projeto no campo `cwd`.
+
 ## Estrutura principal
 
-- [server.py](/C:/Projetos/parser_logic_mcp/src/mcp_logic_analyzer/server.py): exposição MCP de tools, resources e prompts
-- [schemas.py](/C:/Projetos/parser_logic_mcp/src/mcp_logic_analyzer/models/schemas.py): contratos Pydantic
-- [formalizer.py](/C:/Projetos/parser_logic_mcp/src/mcp_logic_analyzer/services/formalizer.py): formalização controlada
-- [entailment.py](/C:/Projetos/parser_logic_mcp/src/mcp_logic_analyzer/services/entailment.py): consequência lógica e contraexemplos
-- [consistency.py](/C:/Projetos/parser_logic_mcp/src/mcp_logic_analyzer/services/consistency.py): consistência
+- [server.py](src/mcp_logic_analyzer/server.py): exposição MCP de tools, resources e prompts
+- [schemas.py](src/mcp_logic_analyzer/models/schemas.py): contratos Pydantic
+- [formalizer.py](src/mcp_logic_analyzer/services/formalizer.py): formalização controlada
+- [entailment.py](src/mcp_logic_analyzer/services/entailment.py): consequência lógica e contraexemplos
+- [consistency.py](src/mcp_logic_analyzer/services/consistency.py): consistência
 
 ## Limitações da V1
 
 - a interpretação de linguagem natural é heurística e deliberadamente restrita;
 - textos longos e muito ambíguos não são o foco desta versão;
 - quando o texto é ambíguo, o servidor tenta devolver alertas e alternativas em vez de assumir uma única leitura.
+
+
