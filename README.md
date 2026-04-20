@@ -1,16 +1,24 @@
 # neo-mcp-logic-analyze
 
-Servidor MCP em Python para analisar enunciados em linguagem natural e produzir uma formalização lógica controlada, com foco didático e auditável.
+Language: English | [Português](README.pt-BR.md)
 
-## O que este serviço faz
+Python MCP server for controlled logic analysis from natural language, with an emphasis on auditable output and teaching-oriented explanations.
 
-- formaliza textos curtos em lógica proposicional;
-- formaliza um fragmento controlado de lógica de primeira ordem;
-- detecta ambiguidades relevantes para formalização;
-- verifica consistência e consequência lógica;
-- produz contraexemplos simples e explicações em linguagem natural.
+## What it does
 
-## Ferramentas MCP expostas
+This server accepts short natural-language statements and arguments, then provides structured logic-oriented outputs such as:
+
+- controlled formalization into propositional logic;
+- controlled formalization into a restricted fragment of first-order logic;
+- ambiguity detection relevant to formalization;
+- consistency checking;
+- entailment checking;
+- simple counterexamples when entailment fails;
+- natural-language explanations of the formalization process.
+
+## MCP tools
+
+The server exposes the following MCP tools:
 
 - `nl_parse_logic`
 - `detect_ambiguities`
@@ -20,9 +28,30 @@ Servidor MCP em Python para analisar enunciados em linguagem natural e produzir 
 - `explain_formalization`
 - `normalize_argument`
 
-## Instalação
+## MCP resources
 
-Para fazer o download dos binários e instalar no ambiente python local
+The server also exposes these resources:
+
+- `logic://schemas/ast-v1`
+- `logic://examples/propositional`
+- `logic://examples/fol`
+- `logic://guides/ambiguity-taxonomy`
+
+## MCP prompts
+
+Available prompts:
+
+- `formalize_argument`
+- `teach_logic_step_by_step`
+- `review_formalization`
+
+## Requirements
+
+- Python 3.11+
+
+## Installation
+
+Clone the repository and install the package into your current Python environment:
 
 ```powershell
 git clone https://github.com/giseldo/neo-mcp-logic-analyze
@@ -30,34 +59,33 @@ cd neo-mcp-logic-analyze
 python -m pip install .
 ```
 
-## Execução rápida
+For development dependencies:
 
-O programa não precisa iniciar, ele será iniciado pelo Harness (por exemplo: claude desktop ou cursor)
+```powershell
+python -m pip install -e .[dev]
+```
 
-Mas para verificar se está tudo funcionando, execute o comando a seguir. Ele exibe uma mensagem curta no terminal informando que o servidor subiu e ficou aguardando um cliente MCP via `stdio`. Depois feche o terminal, ou CTRL + C para parar a aplicação. Pois o controle de quandoi será iniciado será pelo Harness.
+## Quick run
+
+The server is designed to be launched by an MCP client over `stdio`, such as Claude Desktop, Cursor, or another MCP-compatible host.
+
+To verify that the package is installed correctly, run:
 
 ```powershell
 neo-mcp-logic-analyze
 ```
 
-Saída esperada:
+Expected output:
 
 ```text
-C:\neo-mcp-logic-analyze>neo-mcp-logic-analyze
 neo-mcp-logic-analyze: servidor MCP iniciado em stdio; aguardando cliente...
 ```
 
-## Como desinstalar
+The process will remain open waiting for an MCP client connection. Stop it with `Ctrl+C`.
 
-Se você instalou este app com `pip install -e .` ou `pip install .`, remova com:
+## MCP client configuration
 
-```powershell
-pip uninstall neo-mcp-logic-analyze
-```
-
-## Configuração do MCP no claude code ou no cursor
-
-Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar o projeto com `pip install -e .`:
+After installing the project with `pip install .` or `pip install -e .`, configure your MCP client like this:
 
 ```json
 {
@@ -69,89 +97,119 @@ Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar
 }
 ```
 
-## Exemplos de teste
+## Example requests
 
-Use um destes exemplos no seu harness (exemplo: claude desktop ou cursor)
+Use the following examples from your MCP client.
 
-### Consequência lógica proposicional
+### Normalize an argument
+
+Tool: `normalize_argument`
 
 ```text
-Use a tool check_entailment com:
+text = "Se chove, a rua molha. Chove. Logo, a rua molha."
+```
+
+Expected behavior:
+
+- premises are separated from the conclusion;
+- the conclusion is identified as `a rua molha`.
+
+### Propositional entailment
+
+Tool: `check_entailment`
+
+```text
 premises = ["Se chove, a rua molha.", "Chove."]
 conclusion = "A rua molha."
 logic_family = "propositional"
 ```
 
-### Formalização em FOL
+Expected behavior:
+
+- entailment succeeds;
+- the response includes a proof sketch.
+
+### First-order logic formalization
+
+Tool: `nl_parse_logic`
 
 ```text
-Use a tool nl_parse_logic com:
 text = "Todo aluno estuda."
 logic_family = "fol"
 return_alternatives = true
 ```
 
-### Ambiguidade
+Expected behavior:
+
+- at least one candidate formalization is returned;
+- one expected surface form is `forall x. (Aluno(x) -> Estuda(x))`.
+
+### Ambiguity detection
+
+Tool: `detect_ambiguities`
 
 ```text
-Use a tool detect_ambiguities no texto:
-"Todo aluno leu um livro."
+text = "Todo aluno leu um livro."
 ```
 
-### Inconsistência
+Expected behavior:
+
+- the server reports at least one quantifier-scope ambiguity.
+
+### Consistency checking
+
+Tool: `check_consistency`
 
 ```text
-Use a tool check_consistency com:
 premises = ["Todo professor pesquisa.", "Nenhum professor pesquisa."]
 logic_family = "fol"
 ```
 
-## Estrutura principal
+Expected behavior:
 
-- [server.py](src/mcp_logic_analyzer/server.py): exposição MCP de tools, resources e prompts
-- [schemas.py](src/mcp_logic_analyzer/models/schemas.py): contratos Pydantic
-- [formalizer.py](src/mcp_logic_analyzer/services/formalizer.py): formalização controlada
-- [entailment.py](src/mcp_logic_analyzer/services/entailment.py): consequência lógica e contraexemplos
-- [consistency.py](src/mcp_logic_analyzer/services/consistency.py): consistência
+- the set is inconsistent;
+- the response can include an unsat core.
 
-## Limitações da V1
+### Counterexample search
 
-- a interpretação de linguagem natural é heurística e deliberadamente restrita;
-- textos longos e muito ambíguos não são o foco desta versão;
-- quando o texto é ambíguo, o servidor tenta devolver alertas e alternativas em vez de assumir uma única leitura.
+Tool: `find_counterexample`
 
-## Exemplo no claude desktop
-
-Se tudo estiver correto no claude desktop quando o LLM quiser o Harness irá chamar a Tool/MCP (neo-mcp-logic-analyze). 
-
-### Configuração
-
-Depois de baixado (git clone) e instalado (pip install .) basta configurar no Harness o MCP Client.
-
-```xml
-{
-"mcpServers": {
-    "neo-mcp-logic-analyze": {
-      "command": "neo-mcp-logic-analyze"
-    }
-  },
-}
+```text
+premises = ["Se estudo, passo.", "Passei."]
+conclusion = "Estudei."
+logic_family = "propositional"
 ```
 
-No claude desktop
+Expected behavior:
 
-![alt text](img/image-4.png)
+- the conclusion is not entailed;
+- the response can include a counterexample model.
 
-![alt text](img/image-3.png)
+## Project structure
 
-Depois de alterar o arquivo reinicie o claude desktop.
+- `src/mcp_logic_analyzer/server.py`: MCP server entrypoint, tool registration, resources, and prompts.
+- `src/mcp_logic_analyzer/models/schemas.py`: Pydantic input and output schemas.
+- `src/mcp_logic_analyzer/services/formalizer.py`: controlled formalization from natural language.
+- `src/mcp_logic_analyzer/services/entailment.py`: entailment checking and counterexamples.
+- `src/mcp_logic_analyzer/services/consistency.py`: consistency checking.
+- `src/mcp_logic_analyzer/services/ambiguity.py`: ambiguity detection.
+- `src/mcp_logic_analyzer/services/explainer.py`: natural-language explanations.
+- `src/mcp_logic_analyzer/services/nl_normalizer.py`: argument normalization.
 
-![alt text](img/image-2.png)
+## Limitations
 
-### Exemplo de uso
+- Natural-language interpretation is heuristic and intentionally restricted.
+- The project is optimized for short inputs, not long free-form texts.
+- When the input is ambiguous, the server prefers warnings and alternative readings instead of forcing a single interpretation.
 
-![alt text](img/image.png)
+## Uninstall
 
-Depois ele trará a resposta se for dada a permissão
+If you installed the package with `pip install .` or `pip install -e .`, remove it with:
 
-![alt text](img/image-1.png)
+```powershell
+pip uninstall neo-mcp-logic-analyze
+```
+
+## License
+
+MIT
