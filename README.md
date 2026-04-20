@@ -62,6 +62,8 @@ Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar
 
 ## Exemplos de teste
 
+Use um destes exemplos no seu harness (exemplo: claude desktop ou cursor)
+
 ### Consequência lógica proposicional
 
 ```text
@@ -109,4 +111,20 @@ logic_family = "fol"
 - textos longos e muito ambíguos não são o foco desta versão;
 - quando o texto é ambíguo, o servidor tenta devolver alertas e alternativas em vez de assumir uma única leitura.
 
+## Exemplo no claude desktop
 
+Se tudo estiver correto no claude desktop ele irá verificar com o usuário liberação para acesso ao MCP
+
+### Configuração
+
+![alt text](image-3.png)
+
+![alt text](image-2.png)
+
+### Exemplo de uso
+
+![alt text](image.png)
+
+Depois ele trará a resposta se for dada a permissão
+
+![alt text](image-1.png)
