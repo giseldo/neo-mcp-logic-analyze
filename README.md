@@ -22,14 +22,21 @@ Servidor MCP em Python para analisar enunciados em linguagem natural e produzir 
 
 ## Execução rápida
 
+Para fazer o download dos binários e instalar no ambiente python local
+
 ```powershell
-cd .
+git clone https://github.com/giseldo/neo-mcp-logic-analyze
+cd neo-mcp-logic-analyze
 python -m pip install -e .
-$env:PYTHONPATH = "$PWD\src"
-python -m mcp_logic_analyzer.server
 ```
 
-## Configuração do MCP
+Para verificar se está tudo funcionando
+
+```powershell
+neo-mcp-logic-analyze
+```
+
+## Configuração do MCP no claude code ou no cursor
 
 Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar o projeto com `pip install -e .`:
 
@@ -42,25 +49,6 @@ Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar
 	}
 }
 ```
-
-Alternativa para rodar direto do diretório atual do projeto (sem usar o script instalado):
-
-```json
-{
-	"mcpServers": {
-		"neo-mcp-logic-analyze": {
-			"command": "python",
-			"args": ["-m", "mcp_logic_analyzer.server"],
-			"cwd": ".",
-			"env": {
-				"PYTHONPATH": "src"
-			}
-		}
-	}
-}
-```
-
-Se o seu cliente MCP não aceitar `cwd` relativo, informe o caminho absoluto da pasta do projeto no campo `cwd`.
 
 ## Estrutura principal
 
