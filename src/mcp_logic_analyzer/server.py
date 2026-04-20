@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 from mcp.server.fastmcp import FastMCP
 
 from mcp_logic_analyzer.config import RESOURCE_ROOT
@@ -120,6 +122,7 @@ def review_formalization(argument_text: str, candidate_json: str = "{}") -> str:
 
 
 def main() -> None:
+    print("neo-mcp-logic-analyze: servidor MCP iniciado em stdio; aguardando cliente...", file=sys.stderr, flush=True)
     mcp.run()
 
 

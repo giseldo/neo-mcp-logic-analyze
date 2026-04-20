@@ -32,10 +32,18 @@ python -m pip install -e .
 
 ## Execução rápida
 
-Para verificar se está tudo funcionando
+O programa não precisa iniciar, ele será iniciado pelo Harness (por exemplo: claude desktop ou cursor)
+
+Mas para verificar se está tudo funcionando, execute o comando a seguir. Ele agora exibe uma mensagem curta informando que o servidor subiu e ficou aguardando um cliente MCP via `stdio`. Depois feche o terminal, ou CTRL + C para parar a aplicação. Ela será iniciada pelo Harness.
 
 ```powershell
 neo-mcp-logic-analyze
+```
+
+Saída esperada:
+
+```text
+neo-mcp-logic-analyze: servidor MCP iniciado em stdio; aguardando cliente...
 ```
 
 ## Como desinstalar
@@ -113,11 +121,17 @@ logic_family = "fol"
 
 ## Exemplo no claude desktop
 
-Se tudo estiver correto no claude desktop ele irá verificar com o usuário liberação para acesso ao MCP
+Se tudo estiver correto no claude desktop ele irá verificar com o usuário liberação para acesso ao MCP.
 
 ### Configuração
 
+No claude desktop
+
+![alt text](image-4.png)
+
 ![alt text](image-3.png)
+
+Depois de alterar o arquivo reinicie o claude desktop.
 
 ![alt text](image-2.png)
 
