@@ -101,26 +101,28 @@ After installing the project with `pip install .` or `pip install -e .`, configu
 
 Use the following examples from your MCP client.
 
+Note: the examples below are written in English for documentation clarity. Current V1 heuristics still have stronger coverage for some Portuguese patterns, especially parts of ambiguity detection.
+
 ### Normalize an argument
 
 Tool: `normalize_argument`
 
 ```text
-text = "Se chove, a rua molha. Chove. Logo, a rua molha."
+text = "If it rains, the street gets wet. It rains. Therefore, the street gets wet."
 ```
 
 Expected behavior:
 
 - premises are separated from the conclusion;
-- the conclusion is identified as `a rua molha`.
+- the conclusion is identified as `the street gets wet`.
 
 ### Propositional entailment
 
 Tool: `check_entailment`
 
 ```text
-premises = ["Se chove, a rua molha.", "Chove."]
-conclusion = "A rua molha."
+premises = ["If it rains, the street gets wet.", "It rains."]
+conclusion = "The street gets wet."
 logic_family = "propositional"
 ```
 
@@ -134,7 +136,7 @@ Expected behavior:
 Tool: `nl_parse_logic`
 
 ```text
-text = "Todo aluno estuda."
+text = "Every student studies."
 logic_family = "fol"
 return_alternatives = true
 ```
@@ -142,26 +144,27 @@ return_alternatives = true
 Expected behavior:
 
 - at least one candidate formalization is returned;
-- one expected surface form is `forall x. (Aluno(x) -> Estuda(x))`.
+- one expected surface form is `forall x. (Student(x) -> Studies(x))`.
 
 ### Ambiguity detection
 
 Tool: `detect_ambiguities`
 
 ```text
-text = "Todo aluno leu um livro."
+text = "Every student read a book."
 ```
 
 Expected behavior:
 
-- the server reports at least one quantifier-scope ambiguity.
+- the request targets a quantifier-scope ambiguity;
+- for the current V1 heuristics, the Portuguese form `Todo aluno leu um livro.` is still the most reliable way to reproduce that ambiguity report.
 
 ### Consistency checking
 
 Tool: `check_consistency`
 
 ```text
-premises = ["Todo professor pesquisa.", "Nenhum professor pesquisa."]
+premises = ["Every professor researches.", "No professor researches."]
 logic_family = "fol"
 ```
 
@@ -175,8 +178,8 @@ Expected behavior:
 Tool: `find_counterexample`
 
 ```text
-premises = ["Se estudo, passo.", "Passei."]
-conclusion = "Estudei."
+premises = ["If I study, I pass.", "I passed."]
+conclusion = "I studied."
 logic_family = "propositional"
 ```
 
