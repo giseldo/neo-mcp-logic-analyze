@@ -60,6 +60,41 @@ Exemplo de configuração para clientes MCP (chave `mcpServers`), após instalar
 }
 ```
 
+## Exemplos de teste
+
+### Consequência lógica proposicional
+
+```text
+Use a tool check_entailment com:
+premises = ["Se chove, a rua molha.", "Chove."]
+conclusion = "A rua molha."
+logic_family = "propositional"
+```
+
+### Formalização em FOL
+
+```text
+Use a tool nl_parse_logic com:
+text = "Todo aluno estuda."
+logic_family = "fol"
+return_alternatives = true
+```
+
+### Ambiguidade
+
+```text
+Use a tool detect_ambiguities no texto:
+"Todo aluno leu um livro."
+```
+
+### Inconsistência
+
+```text
+Use a tool check_consistency com:
+premises = ["Todo professor pesquisa.", "Nenhum professor pesquisa."]
+logic_family = "fol"
+```
+
 ## Estrutura principal
 
 - [server.py](src/mcp_logic_analyzer/server.py): exposição MCP de tools, resources e prompts
